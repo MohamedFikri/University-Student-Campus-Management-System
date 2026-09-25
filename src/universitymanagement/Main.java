@@ -4,80 +4,99 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Shared objects used across the whole system
     static ActionStack recentActions = new ActionStack();
     static ServiceQueue requestQueue = new ServiceQueue();
-    // TODO: StudentLinkedList, StudentBST, StudentHashTable, CampusGraph
-    // will be added here once teammates share their code.
 
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         System.out.println("University Student and Campus Management System");
         System.out.println("Project setup completed successfully!");
 
         int choice;
+
         do {
             printMenu();
             choice = readInt();
 
             switch (choice) {
+
                 case 1:
                     System.out.println("Add Student - Not implemented yet (Ammar's part).");
                     break;
+
                 case 2:
                     System.out.println("Update Student - Not implemented yet (Ammar's part).");
                     break;
+
                 case 3:
                     System.out.println("Delete Student - Not implemented yet (Ammar's part).");
                     break;
+
                 case 4:
                     System.out.println("Display Students - Not implemented yet (Ammar's part).");
                     break;
+
                 case 5:
                     addServiceRequest();
                     break;
+
                 case 6:
                     requestQueue.processNext();
                     break;
+
                 case 7:
                     recentActions.displayActions();
-break;
+                    break;
+
                 case 8:
                     System.out.println("Display Students using BST - Not implemented yet (Fikri's part).");
                     break;
+
                 case 9:
                     System.out.println("Search Student using Hashing - Not implemented yet (Fikri's part).");
                     break;
+
                 case 10:
                     System.out.println("Add Campus Location - Not implemented yet (Nuzail's part).");
                     break;
+
                 case 11:
                     System.out.println("Remove Campus Location - Not implemented yet (Nuzail's part).");
                     break;
+
                 case 12:
                     System.out.println("Add Campus Road - Not implemented yet (Nuzail's part).");
                     break;
+
                 case 13:
                     System.out.println("Remove Campus Road - Not implemented yet (Nuzail's part).");
                     break;
+
                 case 14:
                     System.out.println("Display Campus Connections - Not implemented yet (Nuzail's part).");
                     break;
+
                 case 15:
                     System.out.println("BFS Traversal - Not implemented yet (Nuzail's part).");
                     break;
+
                 case 16:
                     System.out.println("Exiting... Thank you!");
                     break;
+
                 default:
                     System.out.println("Invalid choice. Try again.");
             }
+
             System.out.println();
+
         } while (choice != 16);
     }
 
     static void printMenu() {
+
         System.out.println("===== MAIN MENU =====");
         System.out.println("1. Add Student");
         System.out.println("2. Update Student");
@@ -99,22 +118,28 @@ break;
     }
 
     static int readInt() {
+
         while (!sc.hasNextInt()) {
             System.out.print("Enter a valid number: ");
             sc.next();
         }
+
         int value = sc.nextInt();
-        sc.nextLine(); // clear the buffer
+        sc.nextLine();
+
         return value;
     }
 
     static void addServiceRequest() {
+
         System.out.print("Enter Student ID: ");
         String id = sc.nextLine();
+
         System.out.print("Enter Request Type (e.g. ID card request, Transcript request): ");
         String type = sc.nextLine();
 
         requestQueue.enqueue(new ServiceRequest(id, type));
+
         recentActions.pushAction("Service request added for " + id);
     }
 }
