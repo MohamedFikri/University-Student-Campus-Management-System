@@ -1,45 +1,79 @@
 package universitymanagement;
 
-import java.util.Stack;
-
 public class ActionStack {
 
-    private final Stack<String> actions;
+    private static class Node {
+        private String action;
+        private Node next;
+
+        public Node(String action) {
+            this.action = action;
+            this.next = null;
+        }
+    }
+
+    private Node top;
+    private int size;
 
     public ActionStack() {
-        this.actions = new Stack<>();
+        top = null;
+        size = 0;
     }
 
+    // Add an action to the top of the stack
     public void pushAction(String action) {
-        actions.push(action);
+        Node newNode = new Node(action);
+        newNode.next = top;
+        top = newNode;
+        size++;
     }
 
+    // Remove and return the latest action
     public String popAction() {
-        if (actions.isEmpty()) {
+        if (isEmpty()) {
             return "No actions available";
         }
 
-        return actions.pop();
+        String removedAction = top.action;
+        top = top.next;
+        size--;
+
+        return removedAction;
     }
 
+    // View the latest action without removing it
     public String peekAction() {
-        if (actions.isEmpty()) {
+        if (isEmpty()) {
             return "No actions available";
         }
 
-        return actions.peek();
+        return top.action;
     }
 
+    // Display actions from latest to oldest
     public void displayActions() {
-        if (actions.isEmpty()) {
+        if (isEmpty()) {
             System.out.println("No actions available.");
             return;
         }
 
-        System.out.println("Recent Actions:");
+        System.out.println("Recent Actions (Latest First):");
 
-        for (String action : actions) {
-            System.out.println(action);
+        Node current = top;
+        int number = 1;
+
+        while (current != null) {
+            System.out.println(number + ". " + current.action);
+            current = current.next;
+            number++;
         }
+    }
+
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
